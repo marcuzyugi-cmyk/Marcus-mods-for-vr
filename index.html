@@ -39,15 +39,15 @@
         }
 
         .logo {
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             object-fit: cover;
             border-radius: 50%;
-            border: 6px solid #8b5cff;
+            border: 5px solid #8b5cff;
             box-shadow:
                 0 0 10px #8b5cff,
                 0 0 30px #8b5cff,
-                0 0 60px #8b5cff;
+                0 0 50px #8b5cff;
             margin-top: 30px;
         }
 
@@ -86,19 +86,12 @@
             margin: 10px;
             font-weight: bold;
             box-shadow: 0 0 15px #8b5cff;
-            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
         }
 
         .button:hover {
             background: #a77cff;
-            box-shadow: 0 0 25px #8b5cff;
-        }
-
-        audio {
-            width: 0;
-            height: 0;
         }
 
         footer {
@@ -114,10 +107,13 @@
         <source src="images/background.mp4" type="video/mp4">
     </video>
 
-    <audio id="background-music" autoplay loop volume="0.5">
+    <audio id="background-music" loop>
         <source src="images/music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
+
+    <button class="button" onclick="startMusic()">
+        Start Music
+    </button>
 
     <img src="images/marcusss.png" alt="Marcus Mods Logo" class="logo">
 
@@ -148,17 +144,11 @@
     </footer>
 
     <script>
-        // Attempt to play audio with user interaction handling
-        const audio = document.getElementById('background-music');
-        
-        // Try to play audio immediately
-        audio.play().catch(function(error) {
-            // If autoplay fails, wait for user interaction
-            document.addEventListener('click', function startAudio() {
-                audio.play();
-                document.removeEventListener('click', startAudio);
-            }, { once: true });
-        });
+        function startMusic() {
+            const music = document.getElementById("background-music");
+            music.volume = 0.5;
+            music.play();
+        }
     </script>
 
 </body>
