@@ -88,15 +88,31 @@
             box-shadow: 0 0 15px #8b5cff;
             border: none;
             cursor: pointer;
+            transition: background 0.3s ease;
         }
 
         .button:hover {
             background: #a77cff;
         }
 
+        .button:active {
+            transform: scale(0.98);
+        }
+
         footer {
             margin-top: 40px;
             color: #cccccc;
+        }
+
+        .status-message {
+            display: none;
+            color: #8b5cff;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .status-message.show {
+            display: block;
         }
     </style>
 </head>
@@ -107,13 +123,16 @@
         <source src="images/background.mp4" type="video/mp4">
     </video>
 
-    <audio id="background-music" loop>
+    <audio id="background-music" loop preload="auto">
         <source src="images/music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
-    <button class="button" onclick="startMusic()">
+    <button class="button" id="music-button" onclick="toggleMusic()">
         Start Music
     </button>
+
+    <div class="status-message" id="status-message"></div>
 
     <img src="images/marcusss.png" alt="Marcus Mods Logo" class="logo">
 
@@ -144,11 +163,57 @@
     </footer>
 
     <script>
-        function startMusic() {
-            const music = document.getElementById("background-music");
-            music.volume = 0.5;
-            music.play();
+        let isPlaying = false;
+        const music = document.getElementById("background-music");
+        const button = document.getElementById("music-button");
+        const statusMessage = document.getElementById("status-message");
+
+        function toggleMusic() {
+            try {
+                if (isPlaying) {
+                    music.pause();
+                    button.textContent = "Start Music";
+                    isPlaying = false;
+                    statusMessage.classList.remove("show");
+                } else {
+                    music.volume = 0.5;
+                    const playPromise = music.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            button.textContent = "Stop Music";
+                            isPlaying = true;
+                            statusMessage.classList.remove("show");
+                        }).catch((error) => {
+                            console.error("Playback failed:", error);
+                            showStatus("Music playback failed. Check file path and browser permissions.");
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error("Error toggling music:", error);
+                showStatus("Error: Unable to play audio");
+            }
         }
+
+        function showStatus(message) {
+            statusMessage.textContent = message;
+            statusMessage.classList.add("show");
+            setTimeout(() => {
+                statusMessage.classList.remove("show");
+            }, 3000);
+        }
+
+        // Handle audio errors
+        music.addEventListener("error", () => {
+            console.error("Audio loading error:", music.error);
+            showStatus("Could not load audio file");
+        });
+
+        music.addEventListener("ended", () => {
+            isPlaying = false;
+            button.textContent = "Start Music";
+        });
     </script>
 
 </body>
