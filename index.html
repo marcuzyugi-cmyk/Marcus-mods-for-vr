@@ -89,6 +89,7 @@
             border: none;
             cursor: pointer;
             transition: background 0.3s ease;
+            font-size: 16px;
         }
 
         .button:hover {
@@ -114,6 +115,109 @@
         .status-message.show {
             display: block;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #8b5cff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 0 40px #8b5cff;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #8b5cff;
+            text-shadow: 0 0 15px #8b5cff;
+        }
+
+        .modal-content p {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .modal-btn.allow {
+            background: #8b5cff;
+            color: white;
+            box-shadow: 0 0 15px #8b5cff;
+        }
+
+        .modal-btn.allow:hover {
+            background: #a77cff;
+            box-shadow: 0 0 25px #a77cff;
+        }
+
+        .modal-btn.deny {
+            background: rgba(139, 92, 255, 0.2);
+            color: #8b5cff;
+            border: 2px solid #8b5cff;
+        }
+
+        .modal-btn.deny:hover {
+            background: rgba(139, 92, 255, 0.4);
+        }
+
+        #music-button {
+            display: none;
+        }
+
+        #music-button.show {
+            display: inline-block;
+        }
     </style>
 </head>
 
@@ -128,8 +232,20 @@
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Music Permission Modal -->
+    <div class="modal show" id="music-modal">
+        <div class="modal-content">
+            <h2>🎵 Allow Music?</h2>
+            <p>Would you like to enable background music?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn allow" onclick="allowMusic()">Allow</button>
+                <button class="modal-btn deny" onclick="denyMusic()">Deny</button>
+            </div>
+        </div>
+    </div>
+
     <button class="button" id="music-button" onclick="toggleMusic()">
-        Start Music
+        Stop Music
     </button>
 
     <div class="status-message" id="status-message"></div>
@@ -166,7 +282,41 @@
         let isPlaying = false;
         const music = document.getElementById("background-music");
         const button = document.getElementById("music-button");
+        const modal = document.getElementById("music-modal");
         const statusMessage = document.getElementById("status-message");
+
+        function allowMusic() {
+            modal.classList.remove("show");
+            button.classList.add("show");
+            startMusic();
+        }
+
+        function denyMusic() {
+            modal.classList.remove("show");
+            button.classList.add("show");
+            isPlaying = false;
+        }
+
+        function startMusic() {
+            try {
+                music.volume = 0.5;
+                const playPromise = music.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        button.textContent = "Stop Music";
+                        isPlaying = true;
+                        statusMessage.classList.remove("show");
+                    }).catch((error) => {
+                        console.error("Playback failed:", error);
+                        showStatus("Music playback failed. Check file path and browser permissions.");
+                    });
+                }
+            } catch (error) {
+                console.error("Error starting music:", error);
+                showStatus("Error: Unable to play audio");
+            }
+        }
 
         function toggleMusic() {
             try {
@@ -176,19 +326,7 @@
                     isPlaying = false;
                     statusMessage.classList.remove("show");
                 } else {
-                    music.volume = 0.5;
-                    const playPromise = music.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            button.textContent = "Stop Music";
-                            isPlaying = true;
-                            statusMessage.classList.remove("show");
-                        }).catch((error) => {
-                            console.error("Playback failed:", error);
-                            showStatus("Music playback failed. Check file path and browser permissions.");
-                        });
-                    }
+                    startMusic();
                 }
             } catch (error) {
                 console.error("Error toggling music:", error);
