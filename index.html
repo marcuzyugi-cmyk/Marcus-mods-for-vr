@@ -5,67 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Marcus Mods</title>
+<style>
+    body {
+        background-color: white;
+        color: black;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+        overflow-x: hidden;
+        position: relative;
+    }
 
-    <style>
-        body {
-            background-color: #111;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
+    body::before {
+        content: "⚡";
+        position: fixed;
+        top: -50px;
+        left: 10%;
+        font-size: 120px;
+        color: #8b5cff;
+        opacity: 0.15;
+        z-index: -1;
+        animation: lightningMove 4s infinite;
+    }
+
+    body::after {
+        content: "⚡";
+        position: fixed;
+        top: 20%;
+        right: 10%;
+        font-size: 150px;
+        color: #8b5cff;
+        opacity: 0.12;
+        z-index: -1;
+        animation: lightningMove 3s infinite;
+    }
+
+    @keyframes lightningMove {
+        0%, 100% {
+            opacity: 0.1;
         }
 
-        .logo {
-            width: 200px;
-            height: auto;
-            border-radius: 15px;
-            margin-top: 20px;
+        50% {
+            opacity: 0.35;
         }
+    }
 
-        h1 {
-            color: #8b5cff;
-            font-size: 45px;
-        }
+    .logo {
+        width: 200px;
+        height: auto;
+        border-radius: 50%;
+        border: 5px solid #8b5cff;
+        box-shadow: 0 0 25px #8b5cff;
+        margin-top: 20px;
+    }
 
-        .box {
-            background-color: #222;
-            border: 2px solid #8b5cff;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px auto;
-            max-width: 500px;
-        }
+    h1 {
+        color: #8b5cff;
+        font-size: 45px;
+    }
 
-        h2 {
-            color: white;
-        }
+    .box {
+        background-color: white;
+        border: 2px solid #8b5cff;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 25px auto;
+        max-width: 500px;
+        box-shadow: 0 0 15px #8b5cff;
+    }
 
-        p {
-            color: #cccccc;
-            font-size: 18px;
-        }
+    h2 {
+        color: black;
+    }
 
-        .button {
-            display: inline-block;
-            background-color: #8b5cff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            margin: 10px;
-            font-weight: bold;
-        }
+    p {
+        color: #444;
+        font-size: 18px;
+    }
 
-        .button:hover {
-            background-color: #a77cff;
-        }
+    .button {
+        display: inline-block;
+        background-color: #8b5cff;
+        color: white;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 10px;
+        margin: 10px;
+        font-weight: bold;
+    }
 
-        footer {
-            margin-top: 40px;
-            color: gray;
-        }
-    </style>
+    .button:hover {
+        background-color: #a77cff;
+    }
+
+    footer {
+        margin-top: 40px;
+        color: gray;
+    }
+</style>
 </head>
 
 <body>
