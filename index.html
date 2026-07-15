@@ -86,14 +86,19 @@
             margin: 10px;
             font-weight: bold;
             box-shadow: 0 0 15px #8b5cff;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .button:hover {
             background: #a77cff;
+            box-shadow: 0 0 25px #8b5cff;
         }
 
         audio {
-            display: none;
+            width: 0;
+            height: 0;
         }
 
         footer {
@@ -109,8 +114,9 @@
         <source src="images/background.mp4" type="video/mp4">
     </video>
 
-    <audio autoplay loop>
+    <audio id="background-music" autoplay loop volume="0.5">
         <source src="images/music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <img src="images/marcusss.png" alt="Marcus Mods Logo" class="logo">
@@ -140,6 +146,20 @@
     <footer>
         Marcus Mods © 2026
     </footer>
+
+    <script>
+        // Attempt to play audio with user interaction handling
+        const audio = document.getElementById('background-music');
+        
+        // Try to play audio immediately
+        audio.play().catch(function(error) {
+            // If autoplay fails, wait for user interaction
+            document.addEventListener('click', function startAudio() {
+                audio.play();
+                document.removeEventListener('click', startAudio);
+            }, { once: true });
+        });
+    </script>
 
 </body>
 </html>
