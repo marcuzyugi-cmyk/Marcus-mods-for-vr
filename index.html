@@ -6,102 +6,83 @@
 
     <title>Marcus Mods</title>
 
-    <style>
-        body {
-            background: transparent;
-            color: black;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+    body {
+    background: transparent;
+    color: black;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
 
-        #background-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-            z-index: -2;
-        }
+#background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
 
-        body::before {
+body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.2);
     z-index: -1;
 }
-        }
 
-        .logo {
-            width: 200px;
-            height: auto;
-            border-radius: 50%;
-            border: 6px solid #8b5cff;
-            box-shadow:
-                0 0 10px #8b5cff,
-                0 0 30px #8b5cff,
-                0 0 60px #8b5cff;
-            margin-top: 20px;
-        }
+.logo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid #8b5cff;
+    box-shadow:
+        0 0 10px #8b5cff,
+        0 0 30px #8b5cff;
+    margin-top: 20px;
+}
 
-        h1 {
-            color: #8b5cff;
-            font-size: 45px;
-        }
+h1 {
+    color: #8b5cff;
+    font-size: 45px;
+}
 
-        .box {
-            background: rgba(255,255,255,0.9);
-            border: 2px solid #8b5cff;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px auto;
-            max-width: 500px;
-            box-shadow: 0 0 20px #8b5cff;
-        }
+.box {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #8b5cff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 25px auto;
+    max-width: 500px;
+    box-shadow: 0 0 20px #8b5cff;
+}
 
-        h2 {
-            color: black;
-        }
+.button {
+    display: inline-block;
+    background: #8b5cff;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    margin: 10px;
+    font-weight: bold;
+}
 
-        p {
-            color: #444;
-            font-size: 18px;
-        }
-
-        .button {
-            display: inline-block;
-            background: #8b5cff;
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            margin: 10px;
-            font-weight: bold;
-            box-shadow: 0 0 15px #8b5cff;
-        }
-
-        .button:hover {
-            background: #a77cff;
-        }
-
-        footer {
-            margin-top: 40px;
-            color: gray;
-        }
-        audio {
+audio {
     display: none;
 }
-    </style>
 </head>
 
 <body>
+    
 <audio autoplay loop>
     <source src="images/music.mp3" type="audio/mpeg">
 </audio>
+  
     <video autoplay muted loop id="background-video">
         <source src="images/background.mp4" type="video/mp4">
     </video>
