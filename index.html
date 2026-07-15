@@ -5,142 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Marcus Mods</title>
-<style>
-    body {
-        background-color: white;
-        color: black;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-        overflow-x: hidden;
-        position: relative;
-    }
 
-    /* Purple lightning bolts in the background */
-    body::before {
-        content: "";
-        position: fixed;
-        top: -150px;
-        left: 12%;
-        width: 100px;
-        height: 600px;
-        background: #8b5cff;
-        clip-path: polygon(
-            45% 0%,
-            70% 0%,
-            55% 35%,
-            90% 35%,
-            25% 100%,
-            40% 50%,
-            5% 50%
-        );
-        opacity: 0.25;
-        filter: drop-shadow(0 0 25px #8b5cff);
-        animation: lightningMove 3s infinite;
-        z-index: -1;
-    }
-
-    body::after {
-        content: "";
-        position: fixed;
-        top: -200px;
-        right: 12%;
-        width: 120px;
-        height: 700px;
-        background: #8b5cff;
-        clip-path: polygon(
-            50% 0%,
-            75% 0%,
-            60% 40%,
-            95% 40%,
-            20% 100%,
-            40% 55%,
-            5% 55%
-        );
-        opacity: 0.2;
-        filter: drop-shadow(0 0 30px #8b5cff);
-        animation: lightningMove 2.5s infinite;
-        z-index: -1;
-    }
-
-    @keyframes lightningMove {
-        0% {
-            transform: translateY(-200px);
-            opacity: 0.1;
+    <style>
+        body {
+            background: transparent;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        50% {
-            opacity: 0.5;
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: -2;
         }
 
-        100% {
-            transform: translateY(200px);
-            opacity: 0.1;
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.65);
+            z-index: -1;
         }
-    }
 
-    /* Profile picture outline */
-    .logo {
-        width: 200px;
-        height: auto;
-        border-radius: 50%;
-        border: 6px solid #8b5cff;
-        box-shadow:
-            0 0 10px #8b5cff,
-            0 0 30px #8b5cff,
-            0 0 60px #8b5cff;
-        margin-top: 20px;
-    }
+        .logo {
+            width: 200px;
+            height: auto;
+            border-radius: 50%;
+            border: 6px solid #8b5cff;
+            box-shadow:
+                0 0 10px #8b5cff,
+                0 0 30px #8b5cff,
+                0 0 60px #8b5cff;
+            margin-top: 20px;
+        }
 
-    h1 {
-        color: #8b5cff;
-        font-size: 45px;
-    }
+        h1 {
+            color: #8b5cff;
+            font-size: 45px;
+        }
 
-    .box {
-        background-color: white;
-        border: 2px solid #8b5cff;
-        border-radius: 15px;
-        padding: 20px;
-        margin: 25px auto;
-        max-width: 500px;
-        box-shadow: 0 0 20px #8b5cff;
-    }
+        .box {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #8b5cff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px auto;
+            max-width: 500px;
+            box-shadow: 0 0 20px #8b5cff;
+        }
 
-    h2 {
-        color: black;
-    }
+        h2 {
+            color: black;
+        }
 
-    p {
-        color: #444;
-        font-size: 18px;
-    }
+        p {
+            color: #444;
+            font-size: 18px;
+        }
 
-    .button {
-        display: inline-block;
-        background-color: #8b5cff;
-        color: white;
-        text-decoration: none;
-        padding: 12px 25px;
-        border-radius: 10px;
-        margin: 10px;
-        font-weight: bold;
-        box-shadow: 0 0 10px #8b5cff;
-    }
+        .button {
+            display: inline-block;
+            background: #8b5cff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            margin: 10px;
+            font-weight: bold;
+            box-shadow: 0 0 15px #8b5cff;
+        }
 
-    .button:hover {
-        background-color: #a77cff;
-    }
+        .button:hover {
+            background: #a77cff;
+        }
 
-    footer {
-        margin-top: 40px;
-        color: gray;
-    }
-</style>
+        footer {
+            margin-top: 40px;
+            color: gray;
+        }
+    </style>
 </head>
 
 <body>
+
+    <video autoplay muted loop id="background-video">
+        <source src="images/background.mp4" type="video/mp4">
+    </video>
 
     <img src="images/marcusss.png" alt="Marcus Mods Logo" class="logo">
 
